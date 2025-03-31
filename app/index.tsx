@@ -1,6 +1,6 @@
 import React, {Fragment, useState} from "react";
 import {Button, StyleSheet, TextBase, TextInput, TouchableHighlight, View} from "react-native";
-import {Link, Stack, useNavigation} from "expo-router";
+import {Link, Stack, useNavigation, useRouter} from "expo-router";
 import {ThemedView} from "@/components/ThemedView";
 import {ThemedText} from "@/components/ThemedText";
 import {Label} from "@react-navigation/elements";
@@ -13,12 +13,7 @@ export default function Index() {
     const [password, onChangePassword] = React.useState('');
     const [wrong, setWrong] = useState<boolean>(false);
     const [isAuthen, setIsAuthen] = useState<boolean>(false);
-    const navigation  = useNavigation("/(tab)");
-    if (isAuthen) {
-        return <View>
-            <ThemedText>Login success</ThemedText>
-        </View>
-    }
+    const router = useRouter();
     return     <>
         <Stack.Screen options={{ title: 'Login' }} />
         <ThemedView style={styles.container}>
@@ -55,7 +50,7 @@ export default function Index() {
                 onPress={() => {
                     listUsers.forEach((u,i) =>{
                         if (userName == u.username && password == u.password) {
-                            setIsAuthen(true)
+                            router.push("/(employee)")
                         }
                     })
                     setWrong(true)
